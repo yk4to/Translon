@@ -10,8 +10,8 @@ type TranslatorModeProperty = {
 };
 
 const names: TranslatorModeProperty = {
-  "deepl": "DeepL",
-  "google": "Google Translator",
+  "deepl": "DeepL Translator",
+  "google": "Google Translate",
 };
 
 export default class Translator {
