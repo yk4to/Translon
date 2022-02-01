@@ -36,8 +36,14 @@ export function activate(context: vscode.ExtensionContext) {
                 browser.close();
               }
             };
-            const translator =  await new Translator('deepl').setup(context, browser, activeEditor, reportProgress, closeListener);
-            translators.push(translator);
+            if (activeEditor) {
+              const translator =  await new Translator('deepl').setup(context, browser, activeEditor, reportProgress, closeListener);
+              translators.push(translator);
+            } else {
+              //Editor Was Closed While Loading Translator
+              vscode.window.showErrorMessage('No active editor found');
+            }
+            console.log(translators.length);
           }
         );
       }else {

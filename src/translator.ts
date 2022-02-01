@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { chromium, ChromiumBrowser, Page } from 'playwright-core';
+import { ChromiumBrowser, Page } from 'playwright-core';
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 
@@ -27,13 +27,13 @@ export default class Translator {
     this.uuid = uuidv4();
   }
 
-  async setup(context: vscode.ExtensionContext, browser: ChromiumBrowser, editor: vscode.TextEditor | undefined, reportProgress: Function, closeListener: Function) {
+  async setup(context: vscode.ExtensionContext, browser: ChromiumBrowser, editor: vscode.TextEditor, reportProgress: Function, closeListener: Function) {
     const t = this;
     reportProgress('Creating new instance...');
     //Create Webview Panel
     t.panel = vscode.window.createWebviewPanel(
       'translate',
-      `Translator (${names[t.mode]})`,
+      `Translon (${names[t.mode]})`,
       vscode.ViewColumn.Beside,
       { enableScripts: true }
     );
@@ -46,21 +46,23 @@ export default class Translator {
     const darkIconUri = vscode.Uri.file(context.extensionPath+'/icons/dark.svg'); 
     t.panel.iconPath = { light: lightIconUri, dark: darkIconUri }; 
 
-    //Set Mode to Panel
-    t.panel.webview.postMessage({ key: 'setMode', mode: <string>t.mode, name: names[t.mode] });
-
     //Create New Page
     reportProgress('Creating new tab...');
     t.page = await browser.newPage();
     t.editorUri = editor?.document.uri;
-    //Set Panel Close Event
+    //Set Events
     t.panel?.onDidDispose(() => {
-      t.page?.close();
-      closeListener(t.uuid);
+      t.destroy(closeListener);
     });
     t.page.on('close',() => {
-      t.panel?.dispose();
-      closeListener(t.uuid);
+      t.destroy(closeListener);
+    });
+    t.panel?.onDidChangeViewState(()=>{
+      if (editor && t.page && t.panel) {
+        t.setIntialContent(editor, t.page, t.panel);
+      } else {
+        t.destroy(closeListener);
+      }
     });
 
     //Load Website
@@ -73,12 +75,7 @@ export default class Translator {
     t.setSourceObserver(t.page, context);
 
     //Set Initial Content
-    if (editor) {
-      const text = editor?.document.getText();
-      t.setText(t.page, text);
-    } else {
-      console.error('active editor not found!');
-    }
+    t.setIntialContent(editor, t.page, t.panel);
 
     return t;
   }
@@ -156,6 +153,7 @@ export default class Translator {
   }
 
   private async setText(page: Page, text: string) {
+    console.log(text);
     switch (this.mode) {
       case 'deepl':
         await page.fill('.lmt__source_textarea', text);
@@ -164,5 +162,18 @@ export default class Translator {
         await page.fill('.er8xn', text);
         break;
     }
+  }
+
+  private setIntialContent(editor: vscode.TextEditor, page: Page, panel: vscode.WebviewPanel) {
+    //Set Mode to Panel
+    panel.webview.postMessage({ key: 'setMode', mode: <string>this.mode, name: names[this.mode] });
+    const text = editor?.document.getText();
+    this.setText(page, text);
+  }
+
+  private destroy(closeListener: Function) {
+    this.page?.close();
+    this.panel?.dispose();
+    closeListener(this.uuid);
   }
 } 
