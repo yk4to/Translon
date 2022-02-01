@@ -18,8 +18,8 @@ export function activate(context: vscode.ExtensionContext) {
             //Launch Browser If It Wasn't Launched
             if (!isRunning) {
               browser = await chromium.launch({
-                headless: false,
-                channel: 'chrome',
+                headless: vscode.workspace.getConfiguration('translon').get<boolean>('useHeadlessBrowser'),
+                channel: vscode.workspace.getConfiguration('translon').get('browserDistributionChannel'),
               });
               isRunning = true;
               //Turn Off 'isRunning' Flag When Browser Was Closed

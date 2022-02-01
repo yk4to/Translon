@@ -1,0 +1,4 @@
+{
+  "ext.config.browserDistributionChannel": "The Distribution Channel of the browser to open the translator. (Selected one must be installed on your PC.)",
+  "ext.config.useHeadlessBrowser": "Whether to use a headless browser instead of a GUI browser. When using a headless browser, you don't have a browser window, but you will not able to do complex actions."
+}

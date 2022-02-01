@@ -1,7 +1,7 @@
 {
 	"name": "translon",
 	"displayName": "Translon",
-	"description": "",
+	"description": "Real-time translation tool for VSCode",
 	"publisher": "FusionDev",
 	"version": "0.0.1",
   "license": "MIT",
@@ -41,7 +41,33 @@
 					"group": "navigation"
 				}
 			]
-		}
+		},
+    "configuration": {
+      "title": "Translon",
+      "properties": {
+        "translon.browserDistributionChannel": {
+          "type": "string",
+          "enum": ["chrome", "chrome-beta", "chrome-dev", "chrome-canary", "msedge", "msedge-beta", "msedge-dev", "msedge-canary"],
+          "enumDescriptions": [
+            "Google Chrome",
+            "Google Chrome Beta Channel",
+            "Google Chrome Dev Channel",
+            "Google Chrome Canary Channel",
+            "Microsoft Edge",
+            "Microsoft Edge Beta Channel",
+            "Microsoft Edge Dev Channel",
+            "Microsoft Edge Canary Channel"
+          ],
+          "default": "chrome",
+          "description": "%ext.config.browserDistributionChannel%"
+        },
+        "translon.useHeadlessBrowser": {
+          "type": "boolean",
+          "default": false,
+          "description": "%ext.config.useHeadlessBrowser%"
+        }
+      }
+    }
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
