@@ -4,13 +4,13 @@
 	"description": "Real-time translation tool for VSCode",
 	"publisher": "FusionDev",
 	"version": "0.0.1",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Fus1onDev/Translon.git"
-  },
-  "bugs": "https://github.com/Fus1onDev/Translon/issues",
-  "homepage": "https://github.com/Fus1onDev/Translon",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Fus1onDev/Translon.git"
+	},
+	"bugs": "https://github.com/Fus1onDev/Translon/issues",
+	"homepage": "https://github.com/Fus1onDev/Translon",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -42,32 +42,41 @@
 				}
 			]
 		},
-    "configuration": {
-      "title": "Translon",
-      "properties": {
-        "translon.browserDistributionChannel": {
-          "type": "string",
-          "enum": ["chrome", "chrome-beta", "chrome-dev", "chrome-canary", "msedge", "msedge-beta", "msedge-dev", "msedge-canary"],
-          "enumDescriptions": [
-            "Google Chrome",
-            "Google Chrome Beta Channel",
-            "Google Chrome Dev Channel",
-            "Google Chrome Canary Channel",
-            "Microsoft Edge",
-            "Microsoft Edge Beta Channel",
-            "Microsoft Edge Dev Channel",
-            "Microsoft Edge Canary Channel"
-          ],
-          "default": "chrome",
-          "description": "%ext.config.browserDistributionChannel%"
-        },
-        "translon.useHeadlessBrowser": {
-          "type": "boolean",
-          "default": false,
-          "description": "%ext.config.useHeadlessBrowser%"
-        }
-      }
-    }
+		"configuration": {
+			"title": "Translon",
+			"properties": {
+				"translon.browserDistributionChannel": {
+					"type": "string",
+					"enum": [
+						"chrome",
+						"chrome-beta",
+						"chrome-dev",
+						"chrome-canary",
+						"msedge",
+						"msedge-beta",
+						"msedge-dev",
+						"msedge-canary"
+					],
+					"enumDescriptions": [
+						"Google Chrome",
+						"Google Chrome Beta Channel",
+						"Google Chrome Dev Channel",
+						"Google Chrome Canary Channel",
+						"Microsoft Edge",
+						"Microsoft Edge Beta Channel",
+						"Microsoft Edge Dev Channel",
+						"Microsoft Edge Canary Channel"
+					],
+					"default": "chrome",
+					"description": "%ext.config.browserDistributionChannel%"
+				},
+				"translon.useHeadlessBrowser": {
+					"type": "boolean",
+					"default": false,
+					"description": "%ext.config.useHeadlessBrowser%"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
@@ -91,7 +100,6 @@
 		"typescript": "^4.5.4"
 	},
 	"dependencies": {
-		"playwright-core": "^1.18.1",
-		"uuid": "^8.3.2"
+		"playwright-core": "^1.18.1"
 	}
 }

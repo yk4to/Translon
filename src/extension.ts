@@ -3,8 +3,8 @@ import { chromium, ChromiumBrowser } from 'playwright-core';
 import Translator from './translator';
 
 let browser: ChromiumBrowser;
-let isRunning: boolean = false;
-let translators : Translator[] = [];
+let isBrowserRunning = false;
+let translator: Translator | undefined;
 
 export function activate(context: vscode.ExtensionContext) {
   
@@ -15,35 +15,34 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.withProgress({location: vscode.ProgressLocation.Window, title: 'Translon:'},
           async progress => {
             progress.report({ message: 'Launching Browser...' });
-            //Launch Browser If It Wasn't Launched
-            if (!isRunning) {
+            //Launch browser if it wasn't launched
+            if (!isBrowserRunning) {
               browser = await chromium.launch({
                 headless: vscode.workspace.getConfiguration('translon').get<boolean>('useHeadlessBrowser'),
                 channel: vscode.workspace.getConfiguration('translon').get('browserDistributionChannel'),
               });
-              isRunning = true;
-              //Turn Off 'isRunning' Flag When Browser Was Closed
-              browser.on('disconnected', () => {isRunning = false;});
+              isBrowserRunning = true;
+              //Turn off 'isRunning' flag when browser was closed
+              browser.on('disconnected', () => {isBrowserRunning = false;});
             }
             //Create Translator Instance
             const reportProgress = (message: string) => {
               progress.report({ message: message, increment: 0 });
             };
-            const closeListener = (uuid: string) => {
-              translators = translators.filter(t => t.uuid !== uuid);
-              //Close Browser When There Are No Instances
-              if (translators.length === 0) {
-                browser.close();
-              }
+            const closeListener = () => {
+              browser.close();
+              translator = undefined;
             };
             if (activeEditor) {
-              const translator =  await new Translator('deepl').setup(context, browser, activeEditor, reportProgress, closeListener);
-              translators.push(translator);
+              if (translator === undefined) {
+                translator = await new Translator().setup(context, browser, activeEditor, reportProgress, closeListener);
+              } else {
+                vscode.window.showErrorMessage('Translon is used in the other document.');
+              }
             } else {
-              //Editor Was Closed While Loading Translator
+              //Editor was closed while loading translator
               vscode.window.showErrorMessage('No active editor found');
             }
-            console.log(translators.length);
           }
         );
       }else {
