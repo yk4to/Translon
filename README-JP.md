@@ -2,6 +2,10 @@
 
 > VSCode用のリアルタイム翻訳ツール
 
+![](https://vsmarketplacebadge.apphb.com/version/FusionDev.translon.svg) ![](https://vsmarketplacebadge.apphb.com/installs-short/FusionDev.translon.svg) ![](https://img.shields.io/github/license/fus1ondev/translon)
+
+![screenshot](images/ss.png)
+
 Translonは、DeepLの翻訳サイトをブラウザで開き、自動入力を行うことでVSCode上でのリアルタイム翻訳を行う拡張機能です。
 
 プレーンテキストまたはMarkdownファイルを開き、ツールバー上の翻訳ボタンをクリックするだけで使用できます。
@@ -27,5 +31,3 @@ APIの設定をする必要はありません。
 各サイトの利用規約については、以下のページをご参照ください。
 
 - [DeepL Translator - Terms and conditions](https://www.deepl.com/pro-license?tab=free)
-
-- [Google Privacy & Terms - Using Google services](https://policies.google.com/terms#toc-using)
