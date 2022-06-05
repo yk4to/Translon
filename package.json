@@ -3,8 +3,9 @@
 	"displayName": "Translon",
 	"description": "Real-time translation tool for VSCode",
 	"publisher": "FusionDev",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"license": "MIT",
+  "icon": "images/icon.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Fus1onDev/Translon.git"

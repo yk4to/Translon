@@ -18,9 +18,28 @@ There is no need to configure API settings.
 
 ## Requires
 
-- Google Chrome or Microsoft Edge must be installed
+- Microsoft Edge or Google Chrome must be installed
+
+## Usage
+
+1. Open any plain text or Markdown file.
+2. Click the `文/A` button on the top bar.<br/>Your browser will automatically launch and open the DeepL website.
+3. Enter a sentence and it will be translated in real time.
+4. For other DeepL features, use the browser window directly.
 
 ## Settings
+
+### Browser Distribution Channel
+
+You can select the browser to open the translator website from Microsoft Edge and Google Chrome. (Selected one must be installed on your PC.)
+
+The default value is Microsoft Edge.
+
+### Use Headless Browser
+
+You can select whether to use a headless browser instead of a GUI browser.
+
+When using a headless browser, the browser window will not be displayed, but complex operations will not be possible.
 
 ## Privacy
 
