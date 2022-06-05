@@ -20,6 +20,8 @@ There is no need to configure API settings.
 
 - Microsoft Edge or Google Chrome must be installed
 
+> If you are using Windows, you already have Microsoft Edge installed and do not need to do anything.<br/>**If you are using Mac or Linux, you need to have either browser installed.**
+
 ## Usage
 
 1. Open any plain text or Markdown file.

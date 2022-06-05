@@ -3,7 +3,7 @@
 	"displayName": "Translon",
 	"description": "Real-time translation tool for VSCode",
 	"publisher": "FusionDev",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"license": "MIT",
   "icon": "images/icon.png",
 	"repository": {
