@@ -68,7 +68,7 @@
 						"Microsoft Edge Dev Channel",
 						"Microsoft Edge Canary Channel"
 					],
-					"default": "chrome",
+					"default": "msedge",
 					"description": "%ext.config.browserDistributionChannel%"
 				},
 				"translon.useHeadlessBrowser": {
