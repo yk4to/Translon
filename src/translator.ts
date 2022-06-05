@@ -10,7 +10,7 @@ export default class Translator {
   async setup(context: vscode.ExtensionContext, browser: ChromiumBrowser, editor: vscode.TextEditor, reportProgress: Function, closeListener: Function) {
     const t = this;
     reportProgress('Creating new instance...');
-    //Create TextDocument
+    // Create TextDocument
     vscode.workspace.openTextDocument({ language: editor.document.languageId })
     .then( doc => {
         t.document = doc;
@@ -20,10 +20,10 @@ export default class Translator {
         });
     });
 
-    //Create New Page
+    // Create New Page
     reportProgress('Creating new tab...');
     t.page = await browser.newPage();
-    //Set Events
+    // Set Events
     vscode.workspace.onDidCloseTextDocument(doc => {
       if (doc.uri === t.document?.uri) {
         t.destroy(closeListener);
@@ -33,16 +33,16 @@ export default class Translator {
       t.destroy(closeListener);
     });
 
-    //Load Website
+    // Load Website
     reportProgress('Loading website...');
     let url = 'https://www.deepl.com/translator';
     await t.page.goto(url);
 
-    //Set Observers
+    // Set Observers
     t.setTargetObserver(t.page);
     t.setSourceObserver(t.page, context);
 
-    //Set Initial Content
+    // Set Initial Content
     t.setIntialContent(editor, t.page);
 
     return t;

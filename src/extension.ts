@@ -15,17 +15,17 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.withProgress({location: vscode.ProgressLocation.Window, title: 'Translon:'},
           async progress => {
             progress.report({ message: 'Launching Browser...' });
-            //Launch browser if it wasn't launched
+            // Launch browser if it wasn't launched
             if (!isBrowserRunning) {
               browser = await chromium.launch({
                 headless: vscode.workspace.getConfiguration('translon').get<boolean>('useHeadlessBrowser'),
                 channel: vscode.workspace.getConfiguration('translon').get('browserDistributionChannel'),
               });
               isBrowserRunning = true;
-              //Turn off 'isRunning' flag when browser was closed
+              // Turn off 'isRunning' flag when browser was closed
               browser.on('disconnected', () => {isBrowserRunning = false;});
             }
-            //Create Translator Instance
+            // Create Translator Instance
             const reportProgress = (message: string) => {
               progress.report({ message: message, increment: 0 });
             };
@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
                 vscode.window.showErrorMessage('Translon is used in the other document.');
               }
             } else {
-              //Editor was closed while loading translator
+              // Editor was closed while loading translator
               vscode.window.showErrorMessage('No active editor found');
             }
           }
